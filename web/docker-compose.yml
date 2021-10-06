@@ -10,7 +10,8 @@ services:
     environment:
       - POSTGRES_USER=emt
       - POSTGRES_PASSWORD=emt123
-      - POSTGRES_DB=e-shop
+      - POSTGRES_DB=eshop
+      - PGDATA=/var/lib/postgresql/data/pgdata
     #   Maps port 5432 (localhost) to port 5432 on the container. You can change the ports to fix your needs.
     ports:
       - "5432:5432"

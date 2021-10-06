@@ -1,6 +1,7 @@
 package mk.ukim.finki.emt.eshop.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@Profile("stateful-auth")
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
@@ -27,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/assets/**", "/register", "/products", "/api/**").permitAll()
+                .antMatchers("/", "/h2", "/home", "/assets/**", "/register", "/products", "/api/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -48,15 +50,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) {
-//        auth.inMemoryAuthentication()
-//                .withUser("kostadin.mishev")
-//                .password(passwordEncoder.encode("km"))
-//                .authorities("ROLE_USER")
-//                .and()
-//                .withUser("admin")
-//                .password(passwordEncoder.encode("admin"))
-//                .authorities("ROLE_ADMIN");
-        auth.authenticationProvider(authenticationProvider);
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("kostadin.mishev")
+                .password(passwordEncoder.encode("km"))
+                .authorities("ROLE_USER")
+                .and()
+                .withUser("admin")
+                .password(passwordEncoder.encode("admin"))
+                .authorities("ROLE_ADMIN");
+        //auth.authenticationProvider(authenticationProvider);
     }
 }

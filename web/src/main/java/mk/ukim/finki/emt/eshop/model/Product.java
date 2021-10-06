@@ -3,6 +3,7 @@ package mk.ukim.finki.emt.eshop.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,6 +24,9 @@ public class Product {
 
     @ManyToOne
     private Manufacturer manufacturer;
+
+    @OneToMany(mappedBy = "product")
+    private List<Tag> tags;
 
     public Product() {
     }

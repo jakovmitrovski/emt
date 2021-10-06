@@ -2,7 +2,9 @@ package mk.ukim.finki.emt.eshop.web.rest;
 
 import mk.ukim.finki.emt.eshop.model.Product;
 import mk.ukim.finki.emt.eshop.model.dto.ProductDto;
+import mk.ukim.finki.emt.eshop.model.enumerations.Role;
 import mk.ukim.finki.emt.eshop.service.ProductService;
+import mk.ukim.finki.emt.eshop.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,13 +16,16 @@ import java.util.List;
 public class ProductRestController {
 
     private final ProductService productService;
+    //private final UserService userService;
 
-    public ProductRestController(ProductService productService) {
+    public ProductRestController(ProductService productService /*, UserService userService*/) {
         this.productService = productService;
+        //this.userService = userService;
     }
 
     @GetMapping
     private List<Product> findAll() {
+        //userService.register("admin", "admin", "admin", "admin", "admin", Role.ROLE_ADMIN);
         return this.productService.findAll();
     }
 
